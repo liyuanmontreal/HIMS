@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+    <head>
+
+        <!-- Basic Page Needs
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>HIMS</title>
+        <meta name="author" content="Yuan Li" />
+        <meta name="description" content="HIMS is a home inventory management system to help people manage their private stuff." />
+        <meta name="keywords" content="Home Inventory management" />
+
+        <!-- Mobile Specific Metas
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- FONT
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+        <!-- CSS
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css">
+  
+        <!-- Favicon
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <link rel="icon" type="image/png" href="img/favicon.png" />
+        <!-- style
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <style type="text/css">
+            body{
+                padding: 0;
+                margin: 0;
+                background-image: url("img/background.jpg");
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+               
+            }
+            .hero{
+                
+                height: 100vh;
+                position: relative;
+               
+            }
+            .notification{
+                margin-top:5%;
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+            .button{
+                margin-top: 0px;   
+            }
+            #quote{
+                font-family: 'Dancing Script', cursive;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <!-- Primary Page Layout
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <div  class="hero " >
+            <div class="hero-body ">
+
+            <!-- welcom message and language setting-->
+            <nav class="level options">
+                 <!-- Left side: welcom message -->
+                <div class="level-item">
+                    <h1 class="title has-text-centered is-size-2">Hello, Welcome back!</h1>
+                </div>
+                <!-- Right side: language setting -->
+                <div class="level-right">               
+                <p class="level-item" lang="fr"><a href="indexfr.html">Français</a></p>             
+                </div>
+            </nav>
+
+             <!-- quote-->    
+            <p id="quote" class=" has-text-centered is-size-2 ">Wish you surounded by cherished stuff, and have courage to leave.</p>
+            
+             <!-- log in form-->   
+            <div class="columns is-centered">
+                <div class="column is-3">
+                    <div class="notification is-light">
+                         <!-- Name(Email)-->  
+                        <div class="field">
+                            <label class="label" for="email">Name</label>
+                            <p class="control has-icons-left has-icons-right">
+                                <input class="input" type="email" placeholder="Email" pattern="	^\w+@[a-zA-Z_]+?\.john.smith[a-zA-Z]{2,3}$"
+                                       autofocus="autofocus" required="required" id="email"/>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                            </p>
+                        </div>
+                        <!-- Password-->  
+                        <div class="field">  
+                            <label class="label level-left" for="password">Password</label>                            
+                            <p class="control has-icons-left">                                    
+                                <input class="input" type="password" placeholder="Password" 
+                                required="required" id="password">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-lock"></i> 
+                                </span>
+                            </p>
+                        </div>
+                        <!-- Remember ， Sign up link--> 
+                        <div class="field">
+                            <div class = "level options">
+                                <div class=" checkbox level-left">
+                                    <label class="checkbox"> <input type="checkbox">Remember me</label>                                   
+                                </div> 
+                                    <a class="btn btn-link level-right is-small has-text-link" href="#">sign up</a>                                 
+                            </div> 
+                        </div>       
+                        <!-- login button-->                  
+                        <a class="button is-info s-rounded is-outlined is-medium is-fullwidth " href="dashboard.html">Login</a>    
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </body>
+</html>

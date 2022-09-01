@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<html>
+  <head>
+    <!-- Basic Page Needs
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Roman-HIMS</title>
+    <meta name="author" content="Yuan Li" />
+    <meta name="description" content="HIMS est un système de gestion d'inventaire domestique pour aider les gens à gérer leurs affaires privées." />
+    <meta name="keywords" content="Accueil Gestion des stocks" />
+
+    <!-- Mobile Specific Metas
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- FONT
+    –––––––––––––––––––––––––––––––––––––––––––––––––– 
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">-->
+
+    <!-- CSS
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">  
+    <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"/> 
+
+    <!-- Favicon
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <!-- script
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+    <script>
+      // resize asidebar
+      function resizeAsidebar(){
+        if(document.getElementById("sidebar-items").innerHTML == ""){
+            document.getElementById("sidebar-dash").innerHTML = "Dashboard";
+            document.getElementById("sidebar-items").innerHTML = "Items";
+            document.getElementById("sidebar-rooms").innerHTML = "Rooms";
+            document.getElementById("sidebar-data").innerHTML = "Data";
+            document.getElementById("sidebar-setting").innerHTML = "Setting";
+        }
+        else{
+            document.getElementById("sidebar-dash").innerHTML = "";
+            document.getElementById("sidebar-items").innerHTML = "";
+            document.getElementById("sidebar-rooms").innerHTML = "";
+            document.getElementById("sidebar-data").innerHTML = "";
+            document.getElementById("sidebar-setting").innerHTML = "";
+        }
+      }
+
+      // close notification area
+      document.addEventListener('DOMContentLoaded', () => {
+        (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+          const $notification = $delete.parentNode;
+
+          $delete.addEventListener('click', () => {
+            $notification.parentNode.removeChild($notification);      
+          });
+        });
+      });
+
+      // for "add new place" feature, pop up a modal window
+      document.addEventListener('DOMContentLoaded', () => {
+        // Functions to open and close a modal
+        function openModal($el) {
+          $el.classList.add('is-active');
+        }
+
+        function closeModal($el) {
+          $el.classList.remove('is-active');
+        }
+
+        function closeAllModals() {
+            (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+              closeModal($modal);
+            });
+        }
+
+        
+        // Add a click event on buttons to open a specific modal
+        (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
+          const modal = $trigger.dataset.target;
+          const $target = document.getElementById(modal);
+          console.log($target);
+
+          $trigger.addEventListener('click', () => {
+            openModal($target);
+          });
+        });
+
+      
+        // Add a click event on various child elements to close the parent modal
+        (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+          const $target = $close.closest('.modal');
+
+          $close.addEventListener('click', () => {
+            closeModal($target);
+          });
+        });
+        
+        // Add a keyboard event to close all modals
+        document.addEventListener('keydown', (event) => {
+          const e = event || window.event;
+
+          if (e.keyCode === 27) { // Escape key
+            closeAllModals();
+          }
+        });
+      });
+    </script>
+
+  </head>
+
+
+  <body>
+    <!-- Primary Page Layout
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+     <!-- Notification area
+    <div class="notification is-info is-light has-text-centered">
+      <button class="delete"></button>
+      <a href = "remind.html" >Vous avez <strong>1</strong> nouveau rappel.</a>
+    </div>-->
+
+    <!-- Narbar-->
+    <nav class="navbar has-shadow is-white">
+      <!-- logo and resize button-->
+      <div class = "navbar-brand">
+          <!-- logo -->
+        <a class = "navbar-item">
+            <img src="img/logo.png " alt="site logo" style="max-height:50px" class="py-2 px-2">
+        </a>
+          <!-- resize button -->
+        <a class = "navbar-item btn "  onclick="resizeAsidebar()" >
+          <i class = "fas fa-bars" style="cursor:pointer;" class="has-text-left" id="togglebutton" ></i>
+        </a> 
+      </div><!-- logo end-->
+        
+      <!-- navbar area -->
+      <div  class="navbar-menu">
+          <!-- left side-->
+        <div class="navbar-start">      
+            <!-- drop down menu-->      
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link" >Ma maison</a>        
+            <div class="navbar-dropdown">
+              <a class="navbar-item" href="officefr.html">Mon bureau</a>
+              <hr class="navbar-divider">
+              <a class="navbar-item">Modifier le nom</a>
+              <a class="btn navbar-item js-modal-trigger" data-target="modal-js-example">Ajouter un nouveau lieu</a>
+            </div>
+          </div>           
+        
+            <!-- search box-->   
+          <a class="navbar-item field " >            
+            <p class="control has-icons-right" >
+              <input class="input " type="search" placeholder="Search..."  >
+              <span class="icon is-small is-right">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg>
+                </span>
+            </p>               
+          </a>
+        </div>
+
+          <!-- right side-->
+        <div class = "navbar-end">
+          <a class = "navbar-item" href="helpfr.html">Aider</a>
+          <a class = "navbar-item" href="items-books-literature-fiction-novel.html">En</a>           
+          <a class = "navbar-item" href="remindfr.html"><i class = "fas fa-bell" ></i></a>
+          <a class = "navbar-item" href="userfr.html"> <i class = "fas fa-user"></i></a>  
+        </div>
+      </div> 
+    </nav><!-- navbar end -->
+
+    <!-- main page layout-->
+    <section class = "hero is-fullheight">
+      <div class = "columns">
+        <!-- aside bar -->
+        <aside class = "column is-narrow is-white has-background-light" id="aside" style = "background-color: white; color:black;  overflow:auto;">
+          <div class = "menu">
+            <ul class = "menu-list">
+                <li> 
+                  <a href="dashboardfr.html" class="menu-item">
+                    <i class = "fas fa-chart-pie"></i>
+                    <span class = "text" id="sidebar-dash">Tableau de bord</span>
+                  </a>                    
+                </li>
+                <li> 
+                  <a href="itemsfr.html" class="menu-item">
+                    <i class = "fas fa-book"></i>
+                    <span class = "text" id="sidebar-items">Les Articles </span>
+                  </a>                    
+                </li>                
+                <li> 
+                  <a href="roomsfr.html" class="menu-item">
+                    <i class = "fas fa-door-open"></i>
+                    <span class = "text" id="sidebar-rooms">Les Chambres</span>
+                  </a>                    
+                </li>
+                <li> 
+                  <a href="datafr.html" class="menu-item">
+                    <i class = "fas fa-database"></i>
+                    <span class = "text" id="sidebar-data">Les données</span>
+                  </a>                  
+                </li>                
+                <li> 
+                  <a href="setting.html" class="menu-item">
+                    <i class = "fas fa-cog"></i>
+                    <span class = "text" id="sidebar-setting">Réglage</span>
+                  </a>                    
+                </li>
+            </ul>
+          </div>
+        </aside><!-- aside bar end -->
+
+              <!-- main -->
+              <div class = "column " >
+                <!--room name , drop down menu-->
+                <div class="level">
+                    <!-- Left side -->
+                    <div class="level-left">
+                        <div class="level-item"> 
+                            <h2 class = "title is-l">Roman</h2>
+                        </div>
+                    </div>
+                    <!-- Right side -->
+                    <div class="level-right">
+                        <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link" > </a>
+                            <div class="navbar-dropdown">                                                                           
+                                <a class="navbar-item">Ajouter</a>
+                                <a class="navbar-item">Modifier</a>
+                                <a class="navbar-item">Supprimer</a>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+    
+                <nav class="breadcrumb is-small" aria-label="breadcrumbs">
+                    <ul>        
+                        <li ><a href="itemsfr.html" aria-current="page">Les Articles</a></li>   
+                        <li><a href="#" aria-current="page">Livres</a></li> 
+                        <li ><a href="items-books-literaturefr.html" aria-current="page">Littérature</a></li>   
+                        <li ><a href="" aria-current="page">Fiction</a></li> 
+                        <li class="is-active"><a href="items-books-literature-fiction-novelfr.html" aria-current="page">Roman</a></li>                  
+                    </ul>
+                </nav>
+    
+                <!-- first row -->
+                <div class="columns">
+
+
+                    <div class="column is-2">                
+                      <div class="box ">
+                        <figure class="image ">                               
+                          <img src="img/book4.jpg" alt="Résurrection" title="Résurrection" />
+                        </figure>                   
+                        <div class="level">
+                          <!-- Left side -->
+                              <div class="level-left">
+                                  <div class="level-item">  
+                                      <label><a class="subtitle" href="book1.html" >Résurrection</a></label> <br>                                
+                                  </div>
+                              </div>                                    
+                              <!-- Right side -->
+                              <div class="level-right">
+                                  <div class="navbar-item has-dropdown is-hoverable">
+                                      <a class="navbar-link" > </a>
+                                      <div class="navbar-dropdown">                                                                           
+                                          <a class="navbar-item">Modifier le nom</a>                                                                              
+                                          <a class="navbar-item">Supprimer</a>                                
+                                      </div>
+                                  </div>
+                              </div>
+                        </div>                  
+                        <p>Leo A.Tolstoy </p>    
+                      </div>  
+                     </div>
+      
+                     <div class="column is-2">                
+                      <div class="box ">
+                        <figure class="image ">                               
+                          <img src="img/book3.jpg" alt="La vie de garçon" title="La vie de garçon" />
+                        </figure>                   
+                        <div class="level">
+                          <!-- Left side -->
+                              <div class="level-left">
+                                  <div class="level-item">  
+                                      <label><a class="subtitle" href="book1.html" >La vie de garçon</a></label> <br>                                
+                                  </div>
+                              </div>                                    
+                              <!-- Right side -->
+                              <div class="level-right">
+                                  <div class="navbar-item has-dropdown is-hoverable">
+                                      <a class="navbar-link" > </a>
+                                      <div class="navbar-dropdown">                                                                           
+                                          <a class="navbar-item">Modifier</a>                                                                              
+                                          <a class="navbar-item">Supprimer</a>                                
+                                      </div>
+                                  </div>
+                              </div>
+                        </div>                  
+                        <p>Robert McCammon </p>    
+                      </div>  
+                     </div>
+      
+               </div>
+            </div>     
+      </div> <!-- columns end-->  
+    </section> <!-- main page layout end-->
+     
+
+    <!-- modal -pop up window for add new place -->
+    <div id="modal-js-example" class="modal">
+      <div class="modal-background"></div>    
+        <div class="modal-content is-narrow">
+            <form class="box">
+                <div class="field">
+                    <label class="label">Nom</label>
+                    <div class="control">
+                    <input class="input" type="email" placeholder="entrez le nom du nouveau lieu">
+                    </div>
+                </div>
+                <button class="button is-outline">Sauvegarder</button>
+                <button class="button is-outline">Annuler</button>
+            </form>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div><!-- modal end -->
+  </body>
+</html>

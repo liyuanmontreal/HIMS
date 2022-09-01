@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<html>
+  <head>
+    <!-- Basic Page Needs
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Livingroom-HIMS</title>
+    <meta name="author" content="Yuan Li" />
+    <meta name="description" content="HIMS is a home inventory management system to help people manage their private stuff." />
+    <meta name="keywords" content="Home Inventory management" />
+
+    <!-- Mobile Specific Metas
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- FONT
+    –––––––––––––––––––––––––––––––––––––––––––––––––– 
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">-->
+
+    <!-- CSS
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">  
+    <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"/> 
+
+    <!-- Favicon
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <!-- script
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+    <script>
+      // resize asidebar
+      function resizeAsidebar(){
+        if(document.getElementById("sidebar-items").innerHTML == ""){
+            document.getElementById("sidebar-dash").innerHTML = "Dashboard";
+            document.getElementById("sidebar-items").innerHTML = "Items";
+            document.getElementById("sidebar-rooms").innerHTML = "Rooms";
+            document.getElementById("sidebar-data").innerHTML = "Data";
+            document.getElementById("sidebar-setting").innerHTML = "Setting";
+        }
+        else{
+            document.getElementById("sidebar-dash").innerHTML = "";
+            document.getElementById("sidebar-items").innerHTML = "";
+            document.getElementById("sidebar-rooms").innerHTML = "";
+            document.getElementById("sidebar-data").innerHTML = "";
+            document.getElementById("sidebar-setting").innerHTML = "";
+        }
+      }
+
+      // close notification area
+      document.addEventListener('DOMContentLoaded', () => {
+        (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+          const $notification = $delete.parentNode;
+
+          $delete.addEventListener('click', () => {
+            $notification.parentNode.removeChild($notification);      
+          });
+        });
+      });
+
+      // for "add new place" feature, pop up a modal window
+      document.addEventListener('DOMContentLoaded', () => {
+        // Functions to open and close a modal
+        function openModal($el) {
+          $el.classList.add('is-active');
+        }
+
+        function closeModal($el) {
+          $el.classList.remove('is-active');
+        }
+
+        function closeAllModals() {
+            (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+              closeModal($modal);
+            });
+        }
+
+        
+        // Add a click event on buttons to open a specific modal
+        (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
+          const modal = $trigger.dataset.target;
+          const $target = document.getElementById(modal);
+          console.log($target);
+
+          $trigger.addEventListener('click', () => {
+            openModal($target);
+          });
+        });
+
+      
+        // Add a click event on various child elements to close the parent modal
+        (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+          const $target = $close.closest('.modal');
+
+          $close.addEventListener('click', () => {
+            closeModal($target);
+          });
+        });
+        
+        // Add a keyboard event to close all modals
+        document.addEventListener('keydown', (event) => {
+          const e = event || window.event;
+
+          if (e.keyCode === 27) { // Escape key
+            closeAllModals();
+          }
+        });
+      });
+    </script>
+
+  </head>
+
+
+  <body>
+    <!-- Primary Page Layout
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+    
+    <!-- Notification area
+    <div class="notification is-info is-light has-text-centered">
+      <button class="delete"></button>
+      <a href = "remind.html" >You have <strong>1</strong> new remind.</a>
+    </div>-->
+
+    <!-- Narbar-->
+    <nav class="navbar has-shadow is-white">
+      <!-- logo and resize button-->
+      <div class = "navbar-brand">
+          <!-- logo -->
+        <a class = "navbar-item">
+            <img src="img/logo.png " alt="site logo" style="max-height:50px" class="py-2 px-2">
+        </a>
+          <!-- resize button -->
+        <a class = "navbar-item btn "  onclick="resizeAsidebar()" >
+          <i class = "fas fa-bars" style="cursor:pointer;" class="has-text-left" id="togglebutton" ></i>
+        </a> 
+      </div><!-- logo end-->
+        
+      <!-- navbar area -->
+      <div  class="navbar-menu">
+          <!-- left side-->
+        <div class="navbar-start">      
+            <!-- drop down menu-->      
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link" >My Home</a>        
+            <div class="navbar-dropdown">
+              <a class="navbar-item" href="office.html">My Office</a>
+              <hr class="navbar-divider">
+              <a class="navbar-item">Edit name</a>
+              <a class="btn navbar-item js-modal-trigger" data-target="modal-js-example">Add new Place</a>
+            </div>
+          </div>           
+        
+            <!-- search box-->   
+          <a class="navbar-item field " >            
+            <p class="control has-icons-right" >
+              <input class="input " type="search" placeholder="Search..."  >
+              <span class="icon is-small is-right">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg>
+                </span>
+            </p>               
+          </a>
+        </div>
+
+          <!-- right side-->
+        <div class = "navbar-end">
+          <a class = "navbar-item" href="help.html">Help</a>
+          <a class = "navbar-item" href="rooms-livingroomfr.html">Fr</a>           
+          <a class = "navbar-item" href="remind.html"><i class = "fas fa-bell" ></i></a>
+          <a class = "navbar-item" href="user.html"> <i class = "fas fa-user"></i></a>  
+        </div>
+      </div> 
+    </nav><!-- navbar end -->
+
+    <!-- main page layout-->
+    <section class = "hero is-fullheight">
+      <div class = "columns">
+        <!-- aside bar -->
+        <aside class = "column is-narrow is-white has-background-light" id="aside" style = "background-color: white; color:black;  overflow:auto;">
+          <div class = "menu">
+            <ul class = "menu-list">
+                <li> 
+                  <a href="dashboard.html" class="menu-item">
+                    <i class = "fas fa-chart-pie"></i>
+                    <span class = "text" id="sidebar-dash">Dashboard</span>
+                  </a>                    
+                </li>
+                <li> 
+                  <a href="items.html" class="menu-item">
+                    <i class = "fas fa-book"></i>
+                    <span class = "text" id="sidebar-items">Items </span>
+                  </a>                    
+                </li>                
+                <li> 
+                  <a href="rooms.html" class="menu-item">
+                    <i class = "fas fa-door-open"></i>
+                    <span class = "text" id="sidebar-rooms">Rooms</span>
+                  </a>                    
+                </li>
+                <li> 
+                  <a href="data.html" class="menu-item">
+                    <i class = "fas fa-database"></i>
+                    <span class = "text" id="sidebar-data">Data</span>
+                  </a>                  
+                </li>                
+                <li> 
+                  <a href="setting.html" class="menu-item">
+                    <i class = "fas fa-cog"></i>
+                    <span class = "text" id="sidebar-setting">Setting</span>
+                  </a>                    
+                </li>
+            </ul>
+          </div>
+        </aside><!-- aside bar end -->
+
+        <!-- main -->
+        <div class = "column " >
+            <!-- section title-->
+            <!--room name , drop down menu-->
+            <div class="level">
+                <!-- Left side -->
+                <div class="level-left">
+                    <div class="level-item"> 
+                        <h2 class = "title is-l">Living Room</h2>
+                    </div>
+                </div>
+
+                <!-- Right side -->
+                <div class="level-right">
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link" > </a>
+                        <div class="navbar-dropdown">                                                                           
+                            <a class="navbar-item">Add</a>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+
+            <!-- breadcrumb -->
+            <nav class="breadcrumb is-small" aria-label="breadcrumbs">
+                <ul>                
+                    <li ><a href="rooms.html" aria-current="page">Rooms</a></li>      
+                    <li class="is-active"><a href="items.html" aria-current="page">Living Room</a></li>                    
+                </ul>
+            </nav>
+
+            <!-- first row -->
+            <div class="columns">
+                <!-- plan-->
+                <div class="column is-half">                    
+                    <div class="card" >
+                        <div class="card-image">                          
+                            <figure class="image is-16by9">                               
+                                <img usemap="#livingroom_map" src="img/livingroomplan.png" alt="Living Room Plan" title="" />
+                            </figure>  
+                            
+                            <map id="livingroom_map" name="livingroom_map">  
+                                <area
+                                    shape="rect"
+                                    coords="200, 0, 350, 200"
+                                    href="rooms-livingroom-bookcase1.html"
+                                    alt="Bookcase 1" title="Bookcase 1"
+                                />    
+                                <area
+                                    shape="rect"
+                                    coords="350, 50, 500, 250"
+                                    href="#"
+                                    alt="Fireplace" title="Fireplace"
+                                /> 
+                                <area
+                                    shape="rect"
+                                    coords="500, 50, 900, 250"
+                                    href="#"
+                                    alt="Bookcase 2" title="Bookcase 2"
+                                />   
+                                <area
+                                    shape="rect"
+                                    coords="0, 100, 500, 600"
+                                    href="#"
+                                    alt="Sofa & Coffee table" title="Sofa & Coffee table"
+                                />                                
+                                <area
+                                    shape="rect"
+                                    coords="500, 250, 700, 550"
+                                    href="#"
+                                    alt="Bookcase 2" title="TV & Table "
+                                />   
+                            </map>
+                        </div>
+                        <div class="card-content">                        
+                            <div class="content">
+                                <div class="level">
+                                    <!-- Left side -->
+                                    <div class="level-left">
+                                        <div class="level-item">                             
+                                            <p class="subtitle category"> Living Room Plan</a></p>  
+                                        </div>
+                                    </div>                                
+                                    <!-- Right side -->
+                                    <div class="level-right">
+                                        <a class="button is-white is-small " href="#">Change Image</a>
+                                    </div>
+                                </div>                                  
+                            </div>
+                        </div>
+                    </div>                        
+                </div>  <!--end of plan-->
+
+                <!-- storage place list-->
+                <div class="column is-half">
+                    <div class="box">
+                         <!-- bookcase 1-->
+                        <article class="media">
+                            <figure class="media-left">
+                                <p class="image is-64x64 ">
+                                    <img  src="img/bookcase1.jpg"  class="is-rounded">
+                                </p> 
+                            </figure>
+                            <div class="media-content">
+                                <div class="content">
+                                    <!--storageplace name , drop down menu-->
+                                    <div class="level">
+                                        <!-- Left side -->
+                                        <div class="level-left">
+                                            <div class="level-item"> 
+                                                <p><a href="rooms-livingroom-bookcase1.html"><strong>Bookcase 1</strong></a> </p>
+                                            </div>
+                                        </div>                                                                        
+                                        <!-- Right side -->
+                                        <div class="level-right">
+                                            <div class="navbar-item has-dropdown is-hoverable">
+                                                <a class="navbar-link" > </a>
+                                                <div class="navbar-dropdown">                                                                           
+                                                    <a class="navbar-item">Edit Name</a>
+                                                    <a class="navbar-item">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <p>fiction</p>
+                                </div>
+                            </div>
+                        </article>
+                         <!-- bookcase 2-->
+                        <article class="media" >
+                            <figure class="media-left">
+                                <p class="image is-64x64 is-rounded">
+                                    <img  src="img/bookcase2.jpg" class="is-rounded">
+                                </p>
+                            </figure>
+                            <div class="media-content">
+                                <div class="content">
+                                    <!--storageplace name , drop down menu-->
+                                    <div class="level">
+                                        <!-- Left side -->
+                                        <div class="level-left">
+                                        <div class="level-item"> 
+                                            <p>                                        
+                                                <a href="#"><strong>Bookcase 2</strong></a>                 
+                                            </p>
+                                        </div>
+                                        </div>
+
+                                        <!-- Right side -->
+                                        <div class="level-right">
+                                            <div class="navbar-item has-dropdown is-hoverable">
+                                                <a class="navbar-link" > </a>
+                                                <div class="navbar-dropdown">                                                                           
+                                                    <a class="navbar-item">Edit Name</a>
+                                                    <a class="navbar-item">Delete</a>
+                                                </div>                                                
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <p>kid's books</p>
+                                </div>
+                            </div>
+                        </article>
+                         <!-- Fireplace-->
+                        <article class="media">
+                            <figure class="media-left">
+                                <p class="image is-64x64">
+                                    <img src="img/fireplace.jpg"  class="is-rounded">
+                                </p>
+                            </figure>
+                            <div class="media-content">
+                                <div class="content">
+                                    <!--storage place name , drop down menu-->
+                                    <div class="level">
+                                        <!-- Left side -->
+                                        <div class="level-left">
+                                            <div class="level-item"> 
+                                                <p>                                            
+                                                    <a href="#"><strong>Fireplace</strong></a>                
+                                                </p>
+                                            </div>
+                                        </div>        
+                                        <!-- Right side -->
+                                        <div class="level-right">
+                                            <div class="navbar-item has-dropdown is-hoverable">
+                                                <a class="navbar-link" > </a>
+                                                <div class="navbar-dropdown">                                                                           
+                                                    <a class="navbar-item">Edit Name</a>
+                                                    <a class="navbar-item">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <p>photo frame</p>
+                                </div>
+                            </div>
+                        </article>
+                         <!-- Sofa & Coffee table-->
+                        <article class="media">
+                            <figure class="media-left">
+                                <p class="image is-64x64 ">
+                                    <img src="img/sofa-coffeetable.jpg"  class="is-rounded">
+                                </p>
+                            </figure>
+                            <div class="media-content">
+                                <div class="content">
+                                    <!--storage place name , drop down menu-->
+                                    <div class="level">
+                                        <!-- Left side -->
+                                        <div class="level-left">
+                                            <div class="level-item"> 
+                                                <p>                                            
+                                                    <a href="#"><strong>Sofa & Coffee table</strong></a>                 
+                                                </p>
+                                            </div>
+                                        </div>
+        
+                                        <!-- Right side -->
+                                        <div class="level-right">
+                                            <div class="navbar-item has-dropdown is-hoverable">
+                                                <a class="navbar-link" > </a>
+                                                <div class="navbar-dropdown">                                                                           
+                                                    <a class="navbar-item">Edit Name</a>
+                                                    <a class="navbar-item">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <p>Sofa,coffee table , rug ...</p>
+                                </div>
+                            </div>
+                        </article>
+                         <!-- TV & Table-->
+                        <article class="media">
+                            <figure class="media-left">                          
+                                <p class="image is-64x64  ">
+                                    <img src="img/tv-table.jpg"  class="is-rounded">
+                                </p>
+                            </figure>
+                        <div class="media-content">
+                            <div class="content">
+                                <!--storage place name , drop down menu-->
+                                <div class="level">
+                                    <!-- Left side -->
+                                    <div class="level-left">
+                                        <div class="level-item"> 
+                                            <p>                                            
+                                                <a href="#"><strong>TV & Table</strong></a>                 
+                                            </p>
+                                        </div>
+                                    </div>
+    
+                                    <!-- Right side -->
+                                    <div class="level-right">
+                                        <div class="navbar-item has-dropdown is-hoverable">
+                                            <a class="navbar-link" >   </a>
+                                            <div class="navbar-dropdown">                                                                           
+                                                <a class="navbar-item">Edit Name</a>
+                                                <a class="navbar-item">Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <p>TV,Wii,TV cabinet...</p>
+                            </div>
+                        </div>
+                        </article>
+                    </div>                        
+                </div><!--end of storage list-->
+            </div>
+        </div><!-- mainend-->  
+      </div> <!-- columns end-->       
+    </section> <!-- main page layout end-->
+     
+
+    <!-- modal -pop up window for add new place -->
+    <div id="modal-js-example" class="modal">
+      <div class="modal-background"></div>    
+      <div class="modal-content is-narrow">
+        <form class="box">
+          <div class="field">
+            <label class="label">Name</label>
+            <div class="control">
+              <input class="input" type="email" placeholder="enter the name for new place">
+            </div>
+          </div>
+          <button class="button is-outline">Save</button>
+          <button class="button is-outline">Cancel</button>
+        </form>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div> <!-- modal end -->
+  </body>
+</html>
